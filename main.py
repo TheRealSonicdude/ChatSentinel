@@ -1,16 +1,38 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+choice = 0
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+def reset_choice():
+    choice = 0
+
+if __name__ == '__main__':
+
+    print("Welcome to Chat Sentinel.")
+
+    while True:
+        print("Please select an option.")
+        print("1 - Load Chat Log")
+        print("2 - Configure Keywords")
+        print("3 - Generate Report")
+        print("4 - Fetch Data From URL")
+        print("5 - Exit")
+
+        choice = int(input("Enter your choice: "))
+
+        match choice:
+            case 1:
+                print("1")
+                reset_choice()
+            case 2:
+                print("2")
+                reset_choice()
+            case 3:
+                print("3")
+                reset_choice()
+            case 4:
+                print("4")
+                reset_choice()
+            case 5:
+                print("5")
+                print("You have exited the program.")
+                print("To use the program again, press 'Run'.")
+                break
