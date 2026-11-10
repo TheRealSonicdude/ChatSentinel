@@ -83,8 +83,9 @@ def view_logs(list):
 
 def load_logs(filename):
   try:
-    with open(filename, "r", encoding="utf-8") as file:
-      lines = [line.strip() for line in file]
+    df = pd.read_csv(filename)
+    # Extracts just the 'post' column text into a list
+    lines = df['post'].dropna().astype(str).tolist()
     return lines
 
   except FileNotFoundError:
@@ -110,9 +111,7 @@ if __name__ == '__main__':
             case 1:
                 file_epic: str = input("Enter name of file you'd like to use: ")
                 logs_list = load_logs(file_epic)
-                #you can remove the call to print the entire massive file
-                #I just had it to ensure it was properly reading everything
-                print(logs_list)
+                #print(logs_list)
                 reset_choice()
             case 2:
                 manage_keywords(KEYWORDS)
