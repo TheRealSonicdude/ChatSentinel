@@ -58,10 +58,6 @@ def scan_logs(logs, keywords):
       flagged += 1
   print("Total flagged messages:", flagged)
 
-#Should(read: should) censor all the messages.
-#As I recall, this either was or was not working.
-#Has no utility right now, moreso just here in case we need to build on it
-#since the censoring is something we need to do
 def censor_logs(logs, keywords):
   """
   Should(read: should) censor all the messages.
