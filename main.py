@@ -73,8 +73,11 @@ def censor_logs(logs, keywords):
 
 def view_logs(list):
     """
-    Prints the logs. Includes the date, publisher, and other parts of the messages
+    Prints the logs. Includes the date, publisher, and other parts of the messages.
     """
+
+    # TODO: Update this function to be usable with the new format.
+    # TODO: "['post'].dropna().astype(str).tolist()"
     f = 1
     for i in list:
       print("Message number " + str(f) + ": " + i)
@@ -121,11 +124,14 @@ if __name__ == '__main__':
                 scan_logs(logs_list, KEYWORDS)
                 reset_choice()
             case 4:
-                # This DOES NOT WORK YET, this is how we're gonna read from URLs.
-                # If someone smarter than me knows a way to do it faster then go for it.
                 url = str(input("What's the URL you'd like to input?"))
-                myfile = pd.read_csv(url)
-                logs_list = view_logs(myfile)
+                try:
+                    myfile = pd.read_csv(url)
+                    # Extracts just the 'post' column text into a list
+                    logs_list = myfile['post'].dropna().astype(str).tolist()
+                    print(f"Successfully loaded {len(logs_list)} messages from URL!")
+                except Exception as e:
+                    print("Error loading from URL:", e)
                 reset_choice()
             case 5:
                 print("5")
