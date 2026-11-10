@@ -4,17 +4,16 @@ import chardet as chardet
 import urllib.request
 import urllib.error
 
-
-
 choice = 0
 
 def reset_choice():
+    """
+    Resets the user's choice for the primary state machine.
+    """
     choice = 0
 
-#This is ENTIRELY LIMINAL and ENTIRELY A PLACEHOLDER! Once we get the JSON file up, DELETE THIS!
-#Don't forget this
+# TODO: This is ENTIRELY LIMINAL and ENTIRELY A PLACEHOLDER! Once we get the JSON file up, DELETE THIS!
 KEYWORDS = ["mean", "invited", "obviously"]
-
 
 def manage_keywords(keywords):
   while True:
@@ -34,11 +33,13 @@ def manage_keywords(keywords):
       case 'b':
         break
 
-#A simple system for counting individual words.
-#Should be easy to integrate with word weights
-#Unsure exactly how to integrate with the 'contextual rules'
-#mostly cause I'm still not entirely sure what that entails
 def count_matches(line, keywords):
+  """
+  A simple system for counting individual words.
+  Should be easy to integrate with word weights
+  Unsure exactly how to integrate with the 'contextual rules',
+  mostly cause I'm still not entirely sure what that entails.
+  """
   line_lower = line.lower()
   count = 0
   for kw in keywords:
@@ -46,8 +47,10 @@ def count_matches(line, keywords):
       count += 1
   return count
 
-#just plops out flagged messages
 def scan_logs(logs, keywords):
+  """
+  Just plops out flagged messages.
+  """
   flagged = 0
   for log in logs:
     if (count_matches(log, keywords)) > 0:
@@ -60,13 +63,22 @@ def scan_logs(logs, keywords):
 #Has no utility right now, moreso just here in case we need to build on it
 #since the censoring is something we need to do
 def censor_logs(logs, keywords):
+  """
+  Should(read: should) censor all the messages.
+  As I recall, this either was or was not working.
+  Has no utility right now, moreso just here in case we need to build on it
+  since the censoring is something we need to do
+  """
   for log in logs:
       for s in keywords:
         log = log.replace(s, "[REDACTED]")
       print(log)
 
-#prints the logs. Includes the date, publisher, and other parts of the messages
+
 def view_logs(list):
+    """
+    Prints the logs. Includes the date, publisher, and other parts of the messages
+    """
     f = 1
     for i in list:
       print("Message number " + str(f) + ": " + i)
@@ -82,6 +94,8 @@ def load_logs(filename):
   except FileNotFoundError:
     print(f"File '{filename}' not found.")
     return []
+
+# MAIN CODE
 if __name__ == '__main__':
 
     print("Welcome to Chat Sentinel.")
@@ -103,16 +117,20 @@ if __name__ == '__main__':
                 #you can remove the call to print the entire massive file
                 #I just had it to ensure it was properly reading everything
                 print(logs_list)
+                reset_choice()
             case 2:
                 manage_keywords(KEYWORDS)
+                reset_choice()
             case 3:
                 scan_logs(logs_list, KEYWORDS)
+                reset_choice()
             case 4:
                 # This DOES NOT WORK YET, this is how we're gonna read from URLs.
                 # If someone smarter than me knows a way to do it faster then go for it.
                 url = str(input("What's the URL you'd like to input?"))
                 myfile = pd.read_csv(url)
                 logs_list = view_logs(myfile)
+                reset_choice()
             case 5:
                 print("5")
                 print("You have exited the program.")
