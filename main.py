@@ -86,6 +86,7 @@ def load_logs(filename):
     df = pd.read_csv(filename)
     # Extracts just the 'post' column text into a list
     lines = df['post'].dropna().astype(str).tolist()
+    print(f"Successfully loaded {len(lines)} messages from log file: {filename}!")
     return lines
 
   except FileNotFoundError:
